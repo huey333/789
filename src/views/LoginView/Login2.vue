@@ -38,9 +38,7 @@ const HeaderProps={
       </div>
     </div>
   </div>
-  <Foot>
 
-  </Foot>
 
 </template>
 

@@ -1,6 +1,5 @@
 <template>
-  <homePageFramework>
-    <template #homePage>
+
       <!-- Wishlist header 头部布局-->
       <div class="login-page">
         <div class="content">
@@ -172,8 +171,7 @@
         </div>
         <div class="lower-container2"></div>
       </div>
-    </template>
-  </homePageFramework>
+
 </template>
 <style scoped lang="scss">
 /*Wishlist header头部属性.*/
@@ -538,7 +536,7 @@ button:hover {
 </style>
 
 <script setup>
-import homePageFramework from '@/components/HomePageFramework/homePageFramework.vue'
+
 import { ref } from 'vue'
 const products = ref([
   {

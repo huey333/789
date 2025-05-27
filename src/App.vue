@@ -1,12 +1,15 @@
 <script setup>
 import { RouterView } from 'vue-router'
+import Login2 from '@/views/LoginView/Login2.vue'
+
 
 </script>
 
 <template>
-  <router-view>
 
-  </router-view>
+
+  <Router-view />
+<AppFoot />
 </template>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
-  <homePageFramework>
-    <template #homePage>
+
+
       <!-- Cart header 头部布局-->
       <div class="login-page">
         <div class="content">
@@ -171,8 +171,8 @@
 
         </div>
       </div>
-    </template>
-  </homePageFramework>
+
+
 </template>
 <style scoped lang="scss">
 /*header头部属性.*/
@@ -550,7 +550,7 @@ button:hover {
 </style>
 
 <script setup>
-import homePageFramework from '@/components/HomePageFramework/homePageFramework.vue'
+
 import { ref } from 'vue';
 const products = ref([
   {
