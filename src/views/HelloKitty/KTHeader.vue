@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import KTNavigation from '@/views/HelloKitty/KTNavigation.vue'
+
 let welcome="welcome to Hello Kitty shoping ! ping"
 let title="Adorable Hello Kitty  Inspired Ice Cream Delights"
 let describe="Indulge in our sweet treats, adorned with cute Hello Kitty motifs. " +
@@ -8,6 +10,7 @@ let describe="Indulge in our sweet treats, adorned with cute Hello Kitty motifs.
 </script>
 
 <template>
+
 <div class="mainContainer">
   <div class="centerContainer">
     <div class="leftBox">
