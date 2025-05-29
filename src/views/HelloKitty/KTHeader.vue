@@ -10,7 +10,7 @@ import KTNavigation from './KTNavigation.vue'
 </script>
 
 <template>
-  <KTNavigation></KTNavigation>
+
 <div class="mainContainer">
   <div class="centerContainer">
     <div class="leftBox">
@@ -36,13 +36,14 @@ import KTNavigation from './KTNavigation.vue'
 
   background-image: url("src/assets/KTHeader/background.png");
   background-size: 80%; /* 保持图片原始尺寸比例 */
-  background-repeat: repeat; /* 平铺背景图 */
+  background-repeat: repeat-x; /* 平铺背景图 */
 
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 80vh;
+  height: 753px;
+
 }
 .centerContainer{
   display: flex;
@@ -151,36 +152,26 @@ import KTNavigation from './KTNavigation.vue'
   animation-delay: 0.8s;
   opacity: 0;
 }
-@media (max-width: 1146px){
-  .mainContainer {
-    height: 69vh;
-  }
-}
+
 @media (max-width: 990px){
-  .mainContainer {
-    height: 52vh;
-  }
   .leftBox{
     transform: scale(0.7);// 直接等比例放大120%整个容器内容
-
     bottom: 14%;
   }
-  .title,desribe{
-    width: 400px !important;
-  }
+
 
   .rightImage{
     width: 243px;
     height: 205px;
     }
 }
-@media (max-width: 746px){
-    .centerContainer{width: 100%;
-    }
-
-  .leftBox{
-    position: relative;
-    right: 8%;
+@media (max-width: 400px){
+  .mainContainer{background-size: 300%}
+  .rightImage{
+    display: none;
+    width: 243px;
+    height: 205px;
   }
-}
+  }
+
 </style>
