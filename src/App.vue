@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import KTNavigation from '@/views/HelloKitty/KTNavigation.vue'
+
 
 
 
@@ -8,9 +8,9 @@ import KTNavigation from '@/views/HelloKitty/KTNavigation.vue'
 
 <template>
 
-<KTNavigation></KTNavigation>
 
-  <Router-view />
+
+  <router-view />
 
 </template>
 

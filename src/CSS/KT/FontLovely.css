@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'fontLovely';
+  src: url('@/assets/fonts/FontLovely.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fontLovely_1';
+  src: url('@/assets/fonts/fontLovely_1.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fontLovely_2';
+  src: url('@/assets/fonts/fontLovey_2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

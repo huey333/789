@@ -56,18 +56,21 @@ const Blog = [
   'Blog Details Left Sidebar',
   'Blog Details Right Sidebar',
 ]
+
 </script>
 <template>
+
   <div class="mainContainer">
     <div class="centerContainer">
+
       <div class="navbar">
         <div class="container">
-          <a href="#" class="title">Home</a>
+          <a href="#" class="title" style="">Home</a>
         </div>
         <div class="container">
           <a href="#" class="title has-dropdown">Flavors</a>
           <ul class="Fdroplist">
-            <li v-for="flavor in flavors" :key="flavor" style="width: 70px">
+            <li v-for="flavor in flavors" :key="flavor" style="width: 120px">
               <a href="#">{{ flavor }}</a>
             </li>
           </ul>
@@ -121,7 +124,7 @@ const Blog = [
   align-items: center;
   width: 100%;
   height: 80px;
- position: fixed;
+
   z-index: 2000;
 
 }
@@ -163,12 +166,16 @@ const Blog = [
   .Gdroplist a,
   .Bdroplist a {
     color: #7559a4; // 你想要的颜色
+    font-family: 'fontLovely_2', sans-serif;
+   font-weight: bold;
+
   }
   .Fdroplist a:hover,
   .Pdroplist a:hover,
   .Gdroplist a:hover,
   .Bdroplist a:hover {
-    background: #fbeaf7; // 你喜欢的背景色
+    background-color: white; /* 选中背景色 */
+    color: #fd8caf;
     border-radius: 8px;
     transition: background 0.2s;
   }
@@ -182,8 +189,9 @@ const Blog = [
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s;
+    transition: max-height 2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.9s;
     z-index: 2100;
+
 
   }
     /* 其他样式保持不变 */
@@ -203,6 +211,7 @@ const Blog = [
    height: 230px;
    gap: 20px;
    text-align: left;
+   opacity: 0;
 
 
 
@@ -228,12 +237,31 @@ const Blog = [
   max-height: 500px;
   opacity: 1;
   border: #9fb5dc solid 3px;
+
 }
 
-.container:hover .Fdroplist { width: 400px; }
-.container:hover .Pdroplist { width: 600px; }
-.container:hover .Gdroplist,
-.container:hover .Bdroplist { width: 200px; }
+.container:hover .Fdroplist { width: 600px;
+  background-image: url("../../assets/KTNar/FNav.png");
+  background-size: 100%;
+  background-position: center;
+}
+.container:hover .Pdroplist { width: 800px;
+  background-image: url("../../assets/KTNar/PNav.jpg");
+  background-size: 100%;
+  background-position: center;
+
+}
+.container:hover .Gdroplist{
+  width: 200px;
+  background-image: url("../../assets/KTNar/GNav.png");
+  background-size: 100%;
+  background-position: center;}
+.container:hover .Bdroplist {
+  width: 200px;
+  background-image: url("../../assets/KTNar/BNav.png");
+  background-size: 100%;
+  background-position: center;
+}
 
 .title {
   position: relative;
@@ -241,7 +269,10 @@ const Blog = [
   border: #9fb5dc 3px solid;
   border-radius:50px ;
   transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
-  // 下划线动画
+  color: #7559a4!important;
+  font-family: 'fontLovely', sans-serif;
+
+
   &:hover,
   &:active {
     transform: translateY(-6px) scale(1.04);

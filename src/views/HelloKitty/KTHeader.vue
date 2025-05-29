@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import KTNavigation from '@/views/HelloKitty/KTNavigation.vue'
+
 
 let welcome="welcome to Hello Kitty shoping ! ping"
 let title="Adorable Hello Kitty  Inspired Ice Cream Delights"
 let describe="Indulge in our sweet treats, adorned with cute Hello Kitty motifs. " +
   "From pastel - colored ice creams to Kitty - shaped toppings, every scoop is a whimsical adventure. Whether you're a long - time fan or new to the Hello Kitty world," +
   " our ice creams promise a magical taste experience."
-
+import KTNavigation from './KTNavigation.vue'
 </script>
 
 <template>
-
+  <KTNavigation></KTNavigation>
 <div class="mainContainer">
   <div class="centerContainer">
     <div class="leftBox">
@@ -89,6 +89,7 @@ let describe="Indulge in our sweet treats, adorned with cute Hello Kitty motifs.
       color: #7559a4;
       animation: slideInFromLeft 1s ease-out forwards;
       opacity: 0;
+    font-weight: 400;
       animation-delay: 0.8s;
     }
 
@@ -149,5 +150,37 @@ let describe="Indulge in our sweet treats, adorned with cute Hello Kitty motifs.
   animation: slideInFromRight 1s ease-out forwards;
   animation-delay: 0.8s;
   opacity: 0;
+}
+@media (max-width: 1146px){
+  .mainContainer {
+    height: 69vh;
+  }
+}
+@media (max-width: 990px){
+  .mainContainer {
+    height: 52vh;
+  }
+  .leftBox{
+    transform: scale(0.7);// 直接等比例放大120%整个容器内容
+
+    bottom: 14%;
+  }
+  .title,desribe{
+    width: 400px !important;
+  }
+
+  .rightImage{
+    width: 243px;
+    height: 205px;
+    }
+}
+@media (max-width: 746px){
+    .centerContainer{width: 100%;
+    }
+
+  .leftBox{
+    position: relative;
+    right: 8%;
+  }
 }
 </style>

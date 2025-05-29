@@ -1,0 +1,30 @@
+@keyframes slideInFromRight{
+  from{
+      transform:translateX(500px);
+    opacity: 0;
+  }
+to{
+  transform:translate(0);
+  opacity: 1;
+}
+}
+@keyframes slideInFromLeft {
+  from{
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+  to{
+    transform:translate(0);
+    opacity: 1;
+  }
+}
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(500px); /
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
