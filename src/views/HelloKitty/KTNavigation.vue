@@ -341,7 +341,7 @@ const isMenuOpen =ref(false)
     transform-origin:center;
 
     .NavNavbar{
-      display: none
+      display: none;
     }
   }
   .NavMainContainer:not(.drawerOpen) {
