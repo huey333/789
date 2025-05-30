@@ -35,7 +35,6 @@ import KTNavigation from './KTNavigation.vue'
 .mainContainer{
 
   background-image: url("src/assets/KTHeader/background.png");
-  background-size: 80%; /* 保持图片原始尺寸比例 */
   background-repeat: repeat-x; /* 平铺背景图 */
 
   display: flex;
@@ -58,7 +57,7 @@ import KTNavigation from './KTNavigation.vue'
 .leftBox{
   width: 58%;
 
-  max-width: 90%;
+
   border: 4px dashed #fd8caf;
   border-right: none;
   border-bottom:none ;
@@ -153,25 +152,45 @@ import KTNavigation from './KTNavigation.vue'
   opacity: 0;
 }
 
-@media (max-width: 990px){
+@media (max-width: 981px){
+
   .leftBox{
-    transform: scale(0.7);// 直接等比例放大120%整个容器内容
-    bottom: 14%;
+width: 100%;
+    .title{width: 100%}
+
   }
 
 
   .rightImage{
+
     width: 243px;
     height: 205px;
+   top: 400px;
     }
 }
-@media (max-width: 400px){
-  .mainContainer{background-size: 300%}
+@media (max-width: 604px){
+  .centerContainer{width: 100%}
+   .leftBox{
+     border: none;
+    bottom: 10%;
+     .title{font-size: 30px !important;}
+     .describe{font-size: 12px}
+   }
+  .leftBox::after {
+    display: none;}
   .rightImage{
-    display: none;
+  left: 120px;
     width: 243px;
     height: 205px;
   }
   }
+@media (max-width: 368px){
+
+  .rightImage{
+    left: 90px;
+    width: 243px;
+    height: 205px;
+  }
+}
 
 </style>

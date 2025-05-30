@@ -55,27 +55,36 @@ const NavBlog = [
   'Blog Details Left Sidebar',
   'Blog Details Right Sidebar',
 ]
+import { isMemoSame, ref } from 'vue'
 
+const isMenuOpen =ref(false)
 </script>
 <template>
 
-  <div class="NavMainContainer">
-    <div class="NavCenterContainer">
 
+  <div class="NavMainContainer" :class="{drawerOpen:isMenuOpen}">
+    <div class="NavCenterContainer">
+      <div class="HamburgerMenu" v-if="!isMenuOpen">
+        <div class="hamburger" @click="isMenuOpen='ture'">
+          <span>---</span>
+          <span>---</span>
+          <span>---</span>
+        </div>
+      </div>
       <div class="NavNavbar">
         <div class="NavContainer">
-          <a href="#" class="NavTitle" style="">Home</a>
+          <a href="#" @click.prevent class="NavTitle" style="">Home</a>
         </div>
         <div class="NavContainer">
-          <a href="#" class="NavTitle has-dropdown">Flavors</a>
+          <a href="#"@click.prevent class="NavTitle has-dropdown">Flavors</a>
           <ul class="NavFdroplist">
             <li v-for="flavor in NavFlavors" :key="flavor" style="width: 120px">
-              <a href="#">{{ flavor }}</a>
+              <a href="#" >{{ flavor }}</a>
             </li>
           </ul>
         </div>
         <div class="NavContainer">
-          <a href="#" class="NavTitle has-dropdown">Product</a>
+          <a href="#" @click.prevent class="NavTitle has-dropdown">Product</a>
           <div class="NavPdroplist">
             <div v-for="section in NavProduct" :key="section.category">
               <a href="#">{{ section.category }}</a>
@@ -89,7 +98,7 @@ const NavBlog = [
           </div>
         </div>
         <div class="NavContainer">
-          <a href="#" class="NavTitle has-dropdown">Pages</a>
+          <a href="#"@click.prevent class="NavTitle has-dropdown">Pages</a>
           <ul class="NavGdroplist">
             <li v-for="section in NavPages" :key="section" style="margin: 20px 0">
               <a href="#">{{ section }}</a>
@@ -97,19 +106,25 @@ const NavBlog = [
           </ul>
         </div>
         <div class="NavContainer">
-          <a href="#" class="NavTitle has-dropdown">Blog</a>
+          <a href="#" @click.prevent class="NavTitle has-dropdown">Blog</a>
           <ul class="NavBdroplist">
             <li v-for="section in NavBlog" :key="section" style="margin: 20px 0">
               <a href="#">{{ section }}</a>
             </li>
           </ul>
         </div>
-        <div class="NavContainer">
+        <div class="NavContainer"@click.prevent>
           <a href="#" class="NavTitle">About Us</a>
         </div>
       </div>
     </div>
   </div>
+
+
+
+
+
+
 </template>
 
 <style scoped lang="scss">
@@ -141,6 +156,7 @@ const NavBlog = [
   display: flex;
   gap: 30px;
   ul {
+
     list-style: none;
     margin: 0;
     padding: 0;
@@ -158,23 +174,7 @@ const NavBlog = [
     text-align: center;
     position: relative;
   }
-  .NavFdroplist a,
-  .NavPdroplist a,
-  .NavGdroplist a,
-  .NavBdroplist a {
-    color: #7559a4; // 你想要的颜色
-    font-family: 'fontLovely_2', sans-serif;
-    font-weight: bold;
-  }
-  .NavFdroplist a:hover,
-  .NavPdroplist a:hover,
-  .NavGdroplist a:hover,
-  .NavBdroplist a:hover {
-    background-color: white; /* 选中背景色 */
-    color: #fd8caf;
-    border-radius: 8px;
-    transition: background 0.2s;
-  }
+
   .NavFdroplist,
   .NavPdroplist,
   .NavGdroplist,
@@ -199,6 +199,7 @@ const NavBlog = [
   }
   .NavPdroplist {
     display: flex;
+    flex-wrap: wrap;
     width: 0px;
     height: 230px;
     gap: 20px;
@@ -214,6 +215,23 @@ const NavBlog = [
     text-align: left;
     width: 0px;
   }
+}
+.NavFdroplist a,
+.NavPdroplist a,
+.NavGdroplist a,
+.NavBdroplist a {
+  color: #7559a4; // 你想要的颜色
+  font-family: 'fontLovely_2', sans-serif;
+  font-weight: bold;
+}
+.NavFdroplist a:hover,
+.NavPdroplist a:hover,
+.NavGdroplist a:hover,
+.NavBdroplist a:hover {
+  background-color: white; /* 选中背景色 */
+  color: #fd8caf;
+  border-radius: 8px;
+  transition: background 0.2s;
 }
 .NavContainer:hover .NavFdroplist,
 .NavContainer:hover .NavPdroplist,
@@ -287,7 +305,97 @@ const NavBlog = [
     gap: 9px;
   }
 }
-@media (max-width: 400px) {
-  .NavMainContainer{display: none}
+@media (min-width: 604px) {
+
+  .hamburger{
+    display: none
+  }
 }
+
+@media (max-width: 604px) {
+
+  .NavCenterContainer{
+    justify-content: flex-start;
+     width: 100%;
+    padding-left: 8%;
+}
+
+  .NavMainContainer{
+    width: 100%;
+    .NavNavbar{
+      display: none
+    }
+  }
+
+ .drawerOpen
+ {
+      display: flex;
+    flex-direction: column;
+  justify-content: flex-start ;
+   width: 40%;
+   height: 80vh;
+
+
+    .NavCenterContainer{
+      padding: 40% 0 50% 5%;
+
+      justify-content:flex-start;
+
+      border-radius: 20px;
+      background-repeat: repeat-y;
+      background-size: 100%;
+
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      background-color: rgb(242, 165, 212,0.5);
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("src/assets/KTNar/QQ20250530-201847_副本.png");
+        background-size: 100%;
+        border-radius: 60px;
+        background-repeat: repeat-y;
+        opacity: 0.7; // 图片透明度
+        z-index: -1;
+      }
+    }
+   .NavNavbar{
+     display: flex;
+     flex-direction: column;
+     gap: 30px;
+
+     .NavFdroplist,
+     .NavPdroplist,
+     .NavGdroplist,
+     .NavBdroplist {
+       max-height: 0px;
+       overflow-y: auto;
+       overflow-x: auto;
+       left: 0%;
+       transform: translateX(-0%);
+     }
+     .NavContainer:hover .NavPdroplist{
+       height: 500px;
+       width: 260px;
+     }
+     .NavContainer:hover .NavFdroplist,
+     .NavContainer:hover .NavPdroplist{
+       max-height: 500px;
+       width: 260px;
+     }
+     .NavContainer:hover .NavGdroplist,
+     .NavContainer:hover .NavBdroplist {
+       max-height: 500px;
+       width: 200px;
+     }
+
+
+
+
+   }
+ }
+}
+
 </style>
