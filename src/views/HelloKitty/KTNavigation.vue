@@ -58,18 +58,29 @@ const NavBlog = [
 import { isMemoSame, ref } from 'vue'
 
 const isMenuOpen =ref(false)
+const isMenuOpenTow =ref(false)
+
+function openMenuTow() {
+  isMenuOpenTow.value = true
+  setTimeout(() => {
+    isMenuOpenTow.value = false
+  }, 500)
+}
+function closeMenu() {
+  isMenuOpen.value = false
+  openMenuTow()
+}
 </script>
 <template>
 
 
-  <div class="NavMainContainer" :class="{drawerOpen:isMenuOpen}">
+  <div class="NavMainContainer" :class="{ drawerOpen: isMenuOpen || isMenuOpenTow,
+    D: isMenuOpenTow}">
     <div class="NavCenterContainer">
       <div class="HamburgerMenu" v-if="!isMenuOpen">
         <div class="hamburger" @click="isMenuOpen='ture'">
-          <span>---</span>
-          <span>---</span>
-          <span>---</span>
-        </div>
+
+          <img src="../../assets/KTNar/Nav.png" height="90px" width="60px" /></div>
       </div>
       <div class="NavNavbar">
         <div class="NavContainer">
@@ -117,7 +128,7 @@ const isMenuOpen =ref(false)
           <a href="#" class="NavTitle">About Us</a>
 
         </div >
-        <div v-if="isMenuOpen" class="NavContainer" @click="isMenuOpen=0">
+        <div v-if="isMenuOpen" class="NavContainer" @click="closeMenu">
           <a href="#" class="NavTitle">Shut</a>
 
         </div>
@@ -344,12 +355,6 @@ const isMenuOpen =ref(false)
       display: none;
     }
   }
-  .NavMainContainer:not(.drawerOpen) {
-    /* 与初始状态相同，但显式声明过渡，确保离开时触发 */
-    transition:
-      transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  }
-
 
     .drawerOpen
  {
@@ -421,5 +426,74 @@ const isMenuOpen =ref(false)
    }
  }
 }
+.D{
+  transform: scaleY(0);
+  transition:
+    transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start ;
+  width: 40%;
+  height: 80vh;
+  .NavCenterContainer{
+    padding: 40% 0 50% 5%;
+
+    justify-content:flex-start;
+
+    border-radius: 20px;
+    background-repeat: repeat-y;
+    background-size: 100%;
+
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: rgb(242, 165, 212,0.5);
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("src/assets/KTNar/QQ20250530-201847_副本.png");
+      background-size: 100%;
+      border-radius: 60px;
+      background-repeat: repeat-y;
+      opacity: 0.7; // 图片透明度
+      z-index: -1;
+    }
+  }
+  .NavNavbar{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .NavFdroplist,
+    .NavPdroplist,
+    .NavGdroplist,
+    .NavBdroplist {
+      max-height: 0px;
+      overflow-y: auto;
+      overflow-x: auto;
+
+    }
+    .NavContainer:hover .NavPdroplist{
+      height: 500px;
+      width: 260px;
+    }
+    .NavContainer:hover .NavFdroplist,
+    .NavContainer:hover .NavPdroplist{
+      max-height: 500px;
+      width: 260px;
+    }
+    .NavContainer:hover .NavGdroplist,
+    .NavContainer:hover .NavBdroplist {
+      max-height: 500px;
+      width: 200px;
+    }
+
+
+
+
+  }
+}
+
 
 </style>
