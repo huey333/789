@@ -62,7 +62,7 @@ const isMenuOpen =ref(false)
 <template>
 
 
-  <div class="NavMainContainer" :class="{drawerOpen:isMenuOpen,M:isMenuOpen}">
+  <div class="NavMainContainer" :class="{drawerOpen:isMenuOpen}">
     <div class="NavCenterContainer">
       <div class="HamburgerMenu" v-if="!isMenuOpen">
         <div class="hamburger" @click="isMenuOpen='ture'">
@@ -331,30 +331,36 @@ const isMenuOpen =ref(false)
     padding-left: 8%;
 }
 
+
   .NavMainContainer{
     width: 100%;
-    transform: scaleY(0.8);
-
+    transform: scaleY(0.5);
     transition:
-      transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      opacity 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    transform-origin: center;
+      transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+    transform-origin:center;
+
     .NavNavbar{
       display: none
     }
   }
+  .NavMainContainer:not(.drawerOpen) {
+    /* 与初始状态相同，但显式声明过渡，确保离开时触发 */
+    transition:
+      transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
 
- .drawerOpen
+
+    .drawerOpen
  {
    transform: scaleY(1);
-
+      transition:
+        transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       display: flex;
     flex-direction: column;
   justify-content: flex-start ;
    width: 40%;
    height: 80vh;
-
-
     .NavCenterContainer{
       padding: 40% 0 50% 5%;
 
