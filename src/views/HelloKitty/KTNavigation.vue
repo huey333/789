@@ -55,20 +55,31 @@ const NavBlog = [
   'Blog Details Left Sidebar',
   'Blog Details Right Sidebar',
 ]
-import { isMemoSame, ref } from 'vue'
+import {  ref } from 'vue'
 
 const isMenuOpen =ref(false)
 const isMenuOpenTow =ref(false)
+const isMenuOpenThree = ref(false)
 
+function isMenuOpenThree1() {
+  isMenuOpenThree.value = true
+  setTimeout(() => {
+    isMenuOpenThree.value = false
+  }, 500)
+}
 function openMenuTow() {
   isMenuOpenTow.value = true
   setTimeout(() => {
     isMenuOpenTow.value = false
   }, 500)
 }
+
+
 function closeMenu() {
   isMenuOpen.value = false
   openMenuTow()
+  isMenuOpenThree1()
+
 }
 </script>
 <template>
@@ -78,9 +89,10 @@ function closeMenu() {
     D: isMenuOpenTow}">
     <div class="NavCenterContainer">
       <div class="HamburgerMenu" v-if="!isMenuOpen">
-        <div class="hamburger" @click="isMenuOpen='ture'">
+        <div class="hamburger" @click="isMenuOpen='ture'" :class="{Img:isMenuOpenThree}">
 
-          <img src="../../assets/KTNar/Nav.png" height="90px" width="60px" /></div>
+          <img src="../../assets/KTNar/Nav.jpg" class="ImgD" >
+        </div>
       </div>
       <div class="NavNavbar">
         <div class="NavContainer">
@@ -336,6 +348,14 @@ function closeMenu() {
 
 @media (max-width: 604px) {
 
+  .Img{
+
+   opacity: 0!important;
+  }
+  .ImgD{
+    height: 90px;
+    width: 70px;
+  }
   .NavCenterContainer{
     justify-content: flex-start;
      width: 100%;
@@ -420,9 +440,6 @@ function closeMenu() {
        width: 200px;
      }
 
-
-
-
    }
  }
 }
@@ -457,7 +474,7 @@ function closeMenu() {
       border-radius: 60px;
       background-repeat: repeat-y;
       opacity: 0.7; // 图片透明度
-      z-index: -1;
+      z-index: 1;
     }
   }
   .NavNavbar{
