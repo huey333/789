@@ -62,7 +62,7 @@ const isMenuOpen =ref(false)
 <template>
 
 
-  <div class="NavMainContainer" :class="{drawerOpen:isMenuOpen}">
+  <div class="NavMainContainer" :class="{drawerOpen:isMenuOpen,M:isMenuOpen}">
     <div class="NavCenterContainer">
       <div class="HamburgerMenu" v-if="!isMenuOpen">
         <div class="hamburger" @click="isMenuOpen='ture'">
@@ -113,8 +113,13 @@ const isMenuOpen =ref(false)
             </li>
           </ul>
         </div>
-        <div class="NavContainer"@click.prevent>
+        <div class="NavContainer" @click.prevent>
           <a href="#" class="NavTitle">About Us</a>
+
+        </div >
+        <div v-if="isMenuOpen" class="NavContainer" @click="isMenuOpen=0">
+          <a href="#" class="NavTitle">Shut</a>
+
         </div>
       </div>
     </div>
@@ -180,12 +185,17 @@ const isMenuOpen =ref(false)
   .NavGdroplist,
   .NavBdroplist {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+
+
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s;
+    transition:
+      max-height 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+      opacity 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+      transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transform:translateX(-50%) scaleY(0.1);
+    transform-origin: top;
     z-index: 2100;
   }
   /* 其他样式保持不变 */
@@ -239,6 +249,7 @@ const isMenuOpen =ref(false)
 .NavContainer:hover .NavBdroplist {
   max-height: 500px;
   opacity: 1;
+  transform: scaleY(1);
   border: #9fb5dc solid 3px;
 }
 
@@ -322,6 +333,12 @@ const isMenuOpen =ref(false)
 
   .NavMainContainer{
     width: 100%;
+    transform: scaleY(0.8);
+
+    transition:
+      transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+      opacity 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transform-origin: center;
     .NavNavbar{
       display: none
     }
@@ -329,6 +346,8 @@ const isMenuOpen =ref(false)
 
  .drawerOpen
  {
+   transform: scaleY(1);
+
       display: flex;
     flex-direction: column;
   justify-content: flex-start ;
@@ -373,8 +392,7 @@ const isMenuOpen =ref(false)
        max-height: 0px;
        overflow-y: auto;
        overflow-x: auto;
-       left: 0%;
-       transform: translateX(-0%);
+
      }
      .NavContainer:hover .NavPdroplist{
        height: 500px;
