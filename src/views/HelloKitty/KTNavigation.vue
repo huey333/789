@@ -71,7 +71,7 @@ function openMenuTow() {
   isMenuOpenTow.value = true
   setTimeout(() => {
     isMenuOpenTow.value = false
-  }, 500)
+  }, 350)
 }
 
 

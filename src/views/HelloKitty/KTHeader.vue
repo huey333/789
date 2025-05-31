@@ -2,7 +2,7 @@
 
 
 let welcome="welcome to Hello Kitty shoping ! ping"
-let title="Adorable Hello Kitty  Inspired Ice Cream Delights"
+let title="Adorable Hello Kitty Inspired Dessert Delights"
 let describe="Indulge in our sweet treats, adorned with cute Hello Kitty motifs. " +
   "From pastel - colored ice creams to Kitty - shaped toppings, every scoop is a whimsical adventure. Whether you're a long - time fan or new to the Hello Kitty world," +
   " our ice creams promise a magical taste experience."
