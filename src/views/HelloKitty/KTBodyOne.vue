@@ -10,16 +10,33 @@ import KTHeader from '@/views/HelloKitty/KTHeader.vue'
     <div class="centerContainer">
       <div class="body">
         <div class="theme">
-          <div class="summerTheme">
-            <img src="../../assets/BodyNoe/summer.png" />
+          <div class="left">
+
+            <img src="../../assets/BodyNoe/leftBig.png" class="leftBig"  />
+            <img src="../../assets/BodyNoe/leftssmall.png" class="leftSmall"/>
           </div>
-          <div class="birthdayTheme">
-            <img src="../../assets/BodyNoe/Hellokitty.png" />
+          <div class="center">
+            <div class="title">
+                Theme4.1
+            </div>
+              <div class="describe">
+                Indulge in our My Little Pony birthday-themed
+                sweet treats, adorned with cute pony motifs.
+                From dreamy-hued birthday cake ice creams to
+                Pony-shaped frosting toppings, every scoop is
+              .
+              </div>
+
+            </div>
+          <div class="right" >
+
           </div>
+          </div>
+
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -43,7 +60,7 @@ import KTHeader from '@/views/HelloKitty/KTHeader.vue'
 }
 
 .body {
-  margin-top: 5%;
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -52,9 +69,9 @@ import KTHeader from '@/views/HelloKitty/KTHeader.vue'
 .theme {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content:flex-start;
+  justify-content: center;
   height: 400px;
+
 
 
   img {
@@ -62,18 +79,45 @@ import KTHeader from '@/views/HelloKitty/KTHeader.vue'
     height: 300px;
   }
 
-  .summerTheme {
+  .left {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #9fb5dc;
-    width: 40%;
+    width: 33.3%;
     height: 100%;
+    .leftBig{
+      width: 250px;
+      height: 300px;
+    }
+    .leftSmall{
+      width: 150px;
+      height: 150px;
+      transform: translate(-30%,35%)  ;
+
+
+    }
   }
 
-  .birthdayTheme {
-    margin-left: 200px;
-    width: 40%;
+  .center{
+    width: 33.3%;
+   display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .title{
+      text-align: center;
+      font-size: 90px;
+      font-family: Bodytitle;
+    }
+    .describe{
+
+      text-align: center;
+    }
+
+  }
+
+  .right {
+
+    width: 33.3%;
   }
 }
 </style>

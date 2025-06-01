@@ -34,7 +34,9 @@ import KTNavigation from './KTNavigation.vue'
 <style scoped lang="scss">
 .mainContainer{
 
-  background-image: url("src/assets/KTHeader/background.png");
+  background-image:
+  url("src/assets/KTHeader/background.png"); /* 背景图片 */
+
   background-repeat: repeat-x; /* 平铺背景图 */
 
   display: flex;
@@ -80,12 +82,17 @@ import KTNavigation from './KTNavigation.vue'
       width: 90%;
       color: #f2a5d4;
       font-weight: bold;
+      transition:
 
+        transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       animation: slideInFromRight 1s ease-out forwards;
 
       opacity: 0;
     }
     .describe{
+      transition:
+
+        transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       color: #7559a4;
       animation: slideInFromLeft 1s ease-out forwards;
       opacity: 0;

@@ -81,6 +81,7 @@ function closeMenu() {
   isMenuOpenThree1()
 
 }
+
 </script>
 <template>
 
@@ -91,7 +92,7 @@ function closeMenu() {
       <div class="HamburgerMenu" v-if="!isMenuOpen">
         <div class="hamburger" @click="isMenuOpen='ture'" :class="{Img:isMenuOpenThree}">
 
-          <img src="../../assets/KTNar/Nav.jpg" class="ImgD" >
+          <img src="@/assets/KTNar/hellokitty.gif" class="ImgD" >
         </div>
       </div>
       <div class="NavNavbar">
@@ -141,7 +142,7 @@ function closeMenu() {
 
         </div >
         <div v-if="isMenuOpen" class="NavContainer" @click="closeMenu">
-          <a href="#" class="NavTitle">Shut</a>
+          <a @click.prevent href="#" class="NavTitle">Shut</a>
 
         </div>
       </div>
@@ -209,14 +210,14 @@ function closeMenu() {
   .NavBdroplist {
     position: absolute;
 
-
+    left: 50%;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transition:
       max-height 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      opacity 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+      opacity 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),;
     transform:translateX(-50%) scaleY(0.1);
     transform-origin: top;
     z-index: 2100;
@@ -272,8 +273,9 @@ function closeMenu() {
 .NavContainer:hover .NavBdroplist {
   max-height: 500px;
   opacity: 1;
-  transform: scaleY(1);
+  transform: translateX(-50%) scaleY(1);
   border: #9fb5dc solid 3px;
+
 }
 
 .NavContainer:hover .NavFdroplist {
@@ -283,6 +285,7 @@ function closeMenu() {
   background-position: center;
 }
 .NavContainer:hover .NavPdroplist {
+
   width: 800px;
   background-image: url("../../assets/KTNar/PNav.jpg");
   background-size: 100%;
@@ -353,7 +356,7 @@ function closeMenu() {
    opacity: 0!important;
   }
   .ImgD{
-    height: 90px;
+    height: 130px;
     width: 70px;
   }
   .NavCenterContainer{
@@ -428,16 +431,19 @@ function closeMenu() {
      .NavContainer:hover .NavPdroplist{
        height: 500px;
        width: 260px;
+       transform:translateX(-20%)
      }
      .NavContainer:hover .NavFdroplist,
      .NavContainer:hover .NavPdroplist{
        max-height: 500px;
        width: 260px;
+       transform:translateX(-20%)
      }
      .NavContainer:hover .NavGdroplist,
      .NavContainer:hover .NavBdroplist {
        max-height: 500px;
        width: 200px;
+       transform:translateX(-20%)
      }
 
    }
@@ -490,10 +496,12 @@ function closeMenu() {
       overflow-y: auto;
       overflow-x: auto;
 
+
     }
     .NavContainer:hover .NavPdroplist{
       height: 500px;
       width: 260px;
+
     }
     .NavContainer:hover .NavFdroplist,
     .NavContainer:hover .NavPdroplist{
