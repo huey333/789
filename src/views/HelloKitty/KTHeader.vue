@@ -83,15 +83,12 @@ import KTNavigation from './KTNavigation.vue'
       color: #f2a5d4;
       font-weight: bold;
       transition:
-
         transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       animation: slideInFromRight 1s ease-out forwards;
-
       opacity: 0;
     }
     .describe{
       transition:
-
         transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       color: #7559a4;
       animation: slideInFromLeft 1s ease-out forwards;
