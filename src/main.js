@@ -11,6 +11,7 @@ import router from './router'
 import "./CSS/LoginView/TakeWord.css"
 import "./views/HelloKitty/KTNavigation.vue"
 import KTNavigation from '@/views/HelloKitty/KTNavigation.vue'
+import 'font-awesome/css/font-awesome.min.css';
 
 const app = createApp(App)
 app.use(ElementPlus);
