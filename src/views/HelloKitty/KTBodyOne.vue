@@ -4,6 +4,29 @@ import { ref, onMounted, onBeforeMount } from 'vue'
 
 const leftBig = ref(null)
 const leftSmall = ref(null)
+const isPlaying = ref(false)
+const isOpacity =ref(false)
+const isRightOpen=ref(false)
+const isRightOpcity=ref(false)
+const isRightOpcityTwo=ref(false)
+const RightOpen=()=>{
+  isRightOpen.value=!isRightOpen.value
+  if (isRightOpen.value) {
+    setTimeout(() => {
+      isRightOpcity.value = true
+    }, 500)
+  } else {
+    isRightOpcity.value = false
+  }
+  console.log('isRightOpen:', isRightOpen.value)
+}
+const switchIcon = () => {
+  isPlaying.value = !isPlaying.value
+  setTimeout(()=>{
+    isOpacity.value=!isOpacity.value
+  },500)
+  console.log('isPlaying:', isPlaying.value)
+}
 let observer
 
 /*onMounted(() => {
@@ -99,20 +122,37 @@ onBeforeMount(()=>{})*/
               <div class="RadioLike">I like the most</div>
               <div class="RadioRecommen">Radio recommendations</div>
 
-              <div class="RadioAnimation"></div>
+                <div
+                  :class="['RadioAnimationStatic', { RadioAnimationAction: isPlaying },{ RadioAnimationActionTwo:!isOpacity}]"
+                >
+               <span class="musicName">{{}} 歌名</span>
+                <span class="musicSinger">{{}}歌手</span>
+                <span class="progress"> </span>
+              </div>
+
               <div class="RadioBottom">
                 <img src="../../assets/BodyNoe/leftBig.png" height="1996" width="1456" />
                 <div class="control">
                   <i :class="['fa fa-step-backward', 'iconStyle']"></i>
-                  <i :class="['fa fa-play', 'iconStyle']"></i>
+                  <i
+                    :class="isPlaying ? 'fa fa-play' : 'fa fa-pause'"
+                    class="iconStyle"
+                    @click="switchIcon"
+                  ></i>
+
                   <i :class="['fa fa-step-forward', 'iconStyle']"></i>
-                  <el-icon class="iconStyle">
-                    <Expand />
+                  <el-icon class="iconStyle" @click="RightOpen">
+                    <component :is="isRightOpen ? 'Fold' : 'Expand'" />
                   </el-icon>
                 </div>
               </div>
             </div>
-            <div class="RadioRight"></div>
+            <div :class="[
+              'RadioRight', isRightOpen ? 'RadioRightShow' : 'RadioRightHide'
+              ,{RadioRightOpacity:isRightOpcity},{RadioRightOpacityTwo:isRightOpcityTwo}]"
+            >
+
+            </div>
           </div>
         </div>
       </div>
@@ -310,6 +350,7 @@ onBeforeMount(()=>{})*/
       display: flex;
       flex-direction: column;
       gap: 20px;
+      opacity: 0.7;
       align-items: center;
       position: relative;
       .RadioTitle {
@@ -330,22 +371,80 @@ onBeforeMount(()=>{})*/
         color: #7559a4;
       }
     }
+
     .RadioRight {
       width: 75%;
       height: 72%;
       background-color: #9fb5dc;
       margin-top: 43px;
       border-radius: 50px;
+      transform-origin: left;
+
+      transition:
+        opacity 0.5s cubic-bezier(0.68, 1, 0.27, 1), /* 使用自定义缓动函数 */
+        transform 0.5s cubic-bezier(0.68,1, 0.27, 1); /* 平滑过渡 */
     }
-    .RadioAnimation {
+    .RadioRightHide {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .RadioRightShow {
+      opacity: 0.2;
+      transform: scaleX(1);
+    }
+    .RadioRightOpacity{
+      opacity: 0.7;
+    }
+   .RadioRightOpacityTwo{
+      opacity: 1;
+     transition:
+       opacity 0.5s cubic-bezier(0.68, 1, 0.27, 1), /* 使用自定义缓动函数 */
+       transform 0.5s cubic-bezier(0.68,1, 0.27, 1); /* 平滑过渡 */
+    }
+    .RadioAnimationStatic {
       width: 80%;
-      background-color: rgba(242, 165, 212, 0.5);
+      background-color: rgba(242, 165, 212, 0.8); /* 调整透明度，增加层次感 */
       height: 15%;
       display: flex;
+      align-items: center; /* 垂直居中 */
+      justify-content: center; /* 水平居中 */
       position: absolute;
-      top: 300px;
+      top: 298px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0.7; /* 默认透明度 */
+      transform: scaleY(1); /* 默认缩放比例 */
+      transform-origin: bottom; /* 缩放的起点设置为底部 */
+      border-top-right-radius: 16px;
+      border-top-left-radius: 16px; /* 添加圆角，提升视觉效果 */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 添加阴影，增加立体感 */
+
+      transition:
+        opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), /* 使用自定义缓动函数 */
+        transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* 平滑过渡 */
+
+      span{
+        font-size:13px;
+
+      }
+
     }
-    .RadioBottom {
+
+    /* 静态样式（隐藏） */
+    .RadioAnimationAction {
+      opacity: 0; /* 完全透明 */
+      transform: scaleY(0); /* 垂直方向完全收缩 */
+      box-shadow: none; /* 隐藏时移除阴影 */
+    }
+    .RadioAnimationActionTwo {
+      opacity: 1 !important;
+      transition: opacity 1s cubic-bezier(0.68, -0.55, 0.27, 1.55), /* 使用自定义缓动函数 */
+      transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      transform-origin: bottom;
+    }
+
+      .RadioBottom {
+        filter: contrast(1.5); // 对比度增强为 1.5 倍，可根据需要调整（会导致容器边距移动，无法正常对齐
       width: 100%;
       background-color: rgba(242, 165, 212, 0.78);
       height: 15%;
@@ -373,11 +472,10 @@ onBeforeMount(()=>{})*/
         .iconStyle {
           color: #7559a4;
           cursor: pointer;
-        height: 20px;
-          width: auto;
+          height: 20px;
+          width: 15.72px;
         }
-        .iconStyle:hover{
-
+        .iconStyle:hover {
           color: hotpink;
         }
       }
