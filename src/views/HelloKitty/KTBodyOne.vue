@@ -252,8 +252,10 @@ const SelectMusic =(music)=>{
   align-items: center;
   width: 100%;
   background: #f9d2d2;
+
   height: 885px;
   z-index: 100;
+
 }
 
 .centerContainer {
@@ -394,15 +396,17 @@ const SelectMusic =(music)=>{
   display: flex;
   flex-direction: column;
   position: relative;
+
   .musicDescribe {
     background-image: url("src/assets/BodyNoe/EB7E1141EFA02FD565A22E071DD64CB1_副本.jpg");
     background-size: 100%;
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
-    position: relative;
-    left: 200px;
-  width: 80%;
+    width: 100%;
+   span{ position: relative;
+     left: 200px;}
+  width: 100%;
     .Popular {
       font-size: 44px;
       font-weight: bold;

@@ -38,7 +38,7 @@ import KTNavigation from './KTNavigation.vue'
   url("src/assets/KTHeader/background.png"); /* 背景图片 */
 
   background-repeat: repeat-x; /* 平铺背景图 */
-
+background-size: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,16 +82,14 @@ import KTNavigation from './KTNavigation.vue'
       width: 90%;
       color: #f2a5d4;
       font-weight: bold;
-      transition:
-        transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-      animation: slideInFromRight 1s ease-out forwards;
+
+      animation: slideInFromRight 1s cubic-bezier(0.68, -0.55, 0.27, 5) forwards;
       opacity: 0;
     }
     .describe{
-      transition:
-        transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
       color: #7559a4;
-      animation: slideInFromLeft 1s ease-out forwards;
+      animation: slideInFromLeft 2s cubic-bezier(0.68, -5, 0.27, 5) forwards;
       opacity: 0;
     font-weight: 400;
       animation-delay: 0.8s;
@@ -119,7 +117,7 @@ import KTNavigation from './KTNavigation.vue'
   background-size: contain;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 基础阴影增强立体感 */
-  animation: slideInFromBottom 0.8s ease-out forwards;
+  animation: slideInFromBottom 0.8s  cubic-bezier(0.68, -5, 0.27, 3 ) forwards;
   animation-delay: 1s;
   opacity: 0;
 }
@@ -151,7 +149,7 @@ import KTNavigation from './KTNavigation.vue'
   position: absolute;
   left:62%;
   top: 30%;
-  animation: slideInFromRight 1s ease-out forwards;
+  animation: slideInFromRight 1s  cubic-bezier(0.16, 1, 0.3, 3)forwards;
   animation-delay: 0.8s;
   opacity: 0;
 }
