@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import KTHeader from '@/views/HelloKitty/KTHeader.vue'
 import { ref, onMounted, onBeforeMount } from 'vue'
+import { computed } from 'vue'
 
+const coverImg = computed(() => CurrentMusic.value.img || '/src/assets/BodyNoe/leftssmall.png')
 const leftBig = ref(null)
 const leftSmall = ref(null)
-const isPlaying = ref(false)
+const isPlaying = ref(true)
 const isOpacity =ref(false)
 const isRightOpen=ref(false)
 const isRightOpcity=ref(false)
 const isRightOpcityTwo=ref(false)
+const isSelectEvent =ref(false)
+const audio = ref(new Audio()) // 创建音频实例
 const RightOpen=()=>{
+
+
   isRightOpen.value=!isRightOpen.value
+
   if (isRightOpen.value) {
     setTimeout(() => {
       isRightOpcity.value = true
@@ -21,11 +28,56 @@ const RightOpen=()=>{
   console.log('isRightOpen:', isRightOpen.value)
 }
 const switchIcon = () => {
-  isPlaying.value = !isPlaying.value
-  setTimeout(()=>{
-    isOpacity.value=!isOpacity.value
-  },500)
-  console.log('isPlaying:', isPlaying.value)
+  if (isSelectEvent.value === true) {
+    isPlaying.value = !isPlaying.value
+    isSelectEvent.value=false
+    if (!isPlaying.value) {
+      audio.value.play() // 播放
+    } else {
+      audio.value.pause() // 暂停
+    }            // 播放音乐
+    setTimeout(() => {
+      isOpacity.value = !isOpacity.value
+    }, 250)
+    console.log('isPlaying:', isPlaying.value)
+    setTimeout(() => {
+      isPlaying.value =false
+    }, 700)
+    if(isPlaying.value===false){
+      if (!isPlaying.value) {
+        audio.value.play() // 播放
+      } else {
+        audio.value.pause() // 暂停
+      }            // 播放音乐
+      setTimeout(() => {
+        isOpacity.value = !isOpacity.value
+      }, 500)
+      console.log('isPlaying:', isPlaying.value)
+
+    }
+  } else {
+    isPlaying.value = !isPlaying.value
+
+    if (!isPlaying.value) {
+      audio.value.play() // 播放
+    } else {
+      audio.value.pause() // 暂停
+    }            // 播放音乐
+    setTimeout(() => {
+      isOpacity.value = !isOpacity.value
+    }, 500)
+    console.log('isPlaying:', isPlaying.value)
+  }
+  if(isPlaying.value===false){
+    if (!isPlaying.value) {
+      audio.value.play() // 播放
+    } else {
+      audio.value.pause() // 暂停
+    }            // 播放音乐
+    setTimeout(() => {
+      isOpacity.value = !isOpacity.value
+    }, 500)
+    console.log('isPlaying:', isPlaying.value)}
 }
 let observer
 
@@ -54,6 +106,29 @@ onBeforeMount(()=>{
 })
 
 onBeforeMount(()=>{})*/
+
+
+const MusicArr=[
+  {id:0,name:"Music",singer:"singer",Album:"Album",},
+  {id:1,name:"Happy birthday",singer:"Huey",Album:"Huey"},
+  {id:2,name:"小镇爱",singer:"asen/付思遥",Album:"Thug Love",
+    url:"http://music.163.com/song/media/outer/url?id=2075583674.mp3",
+    img:"src/assets/BodyNoe/R-C.jpg"},
+  {id:3,name:"唯唯",singer:"asen-艾志恒",Album:"Life After Small Town",
+  url:"http://music.163.com/song/media/outer/url?id=2163619024.mp3",
+    img:"https://p1.music.126.net/VmFpmDv5TJwfKeKgHBdiZA==/109951169700047695.jpg"},
+  {id:4,name:"Baby Don't Cry",singer:"EXO",Album:"XOXO"},
+
+]
+const CurrentMusic=ref(MusicArr[0])
+
+const SelectMusic =(music)=>{
+  isSelectEvent.value=true
+  switchIcon()
+  CurrentMusic.value= music
+  audio.value.src = music.url    // 设置音乐URL
+  audio.value.play()             // 播放音乐
+}
 </script>
 
 <template>
@@ -123,15 +198,17 @@ onBeforeMount(()=>{})*/
               <div class="RadioRecommen">Radio recommendations</div>
 
                 <div
-                  :class="['RadioAnimationStatic', { RadioAnimationAction: isPlaying },{ RadioAnimationActionTwo:!isOpacity}]"
+                  :class="['RadioAnimationStatic', { RadioAnimationAction: isPlaying },{ RadioAnimationActionTwo:isOpacity}]"
                 >
-               <span class="musicName">{{}} 歌名</span>
-                <span class="musicSinger">{{}}歌手</span>
+               <span class="musicName">{{CurrentMusic.name}}</span>
+                <span class="musicSinger">{{CurrentMusic.singer}}</span>
                 <span class="progress"> </span>
               </div>
 
               <div class="RadioBottom">
-                <img src="../../assets/BodyNoe/leftBig.png" height="1996" width="1456" />
+                <div class="img">
+                <img :src="coverImg" width="65"height="52" />
+                </div>
                 <div class="control">
                   <i :class="['fa fa-step-backward', 'iconStyle']"></i>
                   <i
@@ -142,7 +219,7 @@ onBeforeMount(()=>{})*/
 
                   <i :class="['fa fa-step-forward', 'iconStyle']"></i>
                   <el-icon class="iconStyle" @click="RightOpen">
-                    <component :is="isRightOpen ? 'Fold' : 'Expand'" />
+                    <component :is="isRightOpen ? 'Expand' : 'Fold'" />
                   </el-icon>
                 </div>
               </div>
@@ -151,6 +228,11 @@ onBeforeMount(()=>{})*/
               'RadioRight', isRightOpen ? 'RadioRightShow' : 'RadioRightHide'
               ,{RadioRightOpacity:isRightOpcity},{RadioRightOpacityTwo:isRightOpcityTwo}]"
             >
+          <div v-for="music in MusicArr":key="music.id" @click="SelectMusic(music)":class="['MusicArr', { 'no-hover': music.id === 0 }]">
+            <span >{{music.name}}</span>
+            <span > {{music.singer}} </span >
+            <span > {{music.Album}} </span >
+          </div>
 
             </div>
           </div>
@@ -158,6 +240,7 @@ onBeforeMount(()=>{})*/
       </div>
     </div>
   </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -373,16 +456,42 @@ onBeforeMount(()=>{})*/
     }
 
     .RadioRight {
+      display: flex;
+      flex-direction: column;
+
       width: 75%;
       height: 72%;
-      background-color: #9fb5dc;
+      background-color: #f2a5d4;
+      filter: contrast(2.5); // 对比度增强为 1.5 倍，可根据需要调整
       margin-top: 43px;
       border-radius: 50px;
       transform-origin: left;
-
       transition:
         opacity 0.5s cubic-bezier(0.68, 1, 0.27, 1), /* 使用自定义缓动函数 */
         transform 0.5s cubic-bezier(0.68,1, 0.27, 1); /* 平滑过渡 */
+    }
+    .MusicArr{
+      margin-top: 20px;
+      margin-left: 30px;
+      margin-right: 20px;
+    color: #181818;
+     display: flex;
+      gap: 50px;
+      text-align: center;
+      filter: contrast(0.2); // 对比度增强为 1.5 倍，可根据需要调整
+      cursor: pointer;
+      span{width:150px}
+    }
+    .MusicArr:hover{
+    background: #fd8caf;
+      filter: contrast(0.4); // 对比度增强为 1.5 倍，可根据需要调整
+      border-radius: 10px;
+    }
+    .MusicArr.no-hover:hover {
+      background: none;
+      filter: none;
+      border-radius: 0;
+      cursor: default;
     }
     .RadioRightHide {
       opacity: 0;
@@ -397,17 +506,22 @@ onBeforeMount(()=>{})*/
     }
    .RadioRightOpacityTwo{
       opacity: 1;
+
      transition:
        opacity 0.5s cubic-bezier(0.68, 1, 0.27, 1), /* 使用自定义缓动函数 */
        transform 0.5s cubic-bezier(0.68,1, 0.27, 1); /* 平滑过渡 */
     }
+
     .RadioAnimationStatic {
+      justify-content: flex-start;
+      span{position: relative;
+        left: 50px;
+        font-size: 12px;
+      }
       width: 80%;
       background-color: rgba(242, 165, 212, 0.8); /* 调整透明度，增加层次感 */
       height: 15%;
       display: flex;
-      align-items: center; /* 垂直居中 */
-      justify-content: center; /* 水平居中 */
       position: absolute;
       top: 298px;
       display: flex;
@@ -418,15 +532,9 @@ onBeforeMount(()=>{})*/
       border-top-right-radius: 16px;
       border-top-left-radius: 16px; /* 添加圆角，提升视觉效果 */
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 添加阴影，增加立体感 */
-
       transition:
         opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), /* 使用自定义缓动函数 */
         transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* 平滑过渡 */
-
-      span{
-        font-size:13px;
-
-      }
 
     }
 
@@ -437,7 +545,9 @@ onBeforeMount(()=>{})*/
       box-shadow: none; /* 隐藏时移除阴影 */
     }
     .RadioAnimationActionTwo {
-      opacity: 1 !important;
+      opacity: 0.7 !important;
+      background-color: #9fb5dc;
+
       transition: opacity 1s cubic-bezier(0.68, -0.55, 0.27, 1.55), /* 使用自定义缓动函数 */
       transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       transform-origin: bottom;
@@ -452,7 +562,8 @@ onBeforeMount(()=>{})*/
       position: absolute;
       top: 360px;
       border-radius: 50px;
-      img {
+      .img {
+        overflow: hidden;
         position: absolute;
         height: 60px;
         width: 60px;
