@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script setup lang="ts" xmlns="http://www.w3.org/1999/html">
 import KTHeader from '@/views/HelloKitty/KTHeader.vue'
 import { ref, onMounted, onBeforeMount } from 'vue'
 import { computed } from 'vue'
+import KTBodyTwo from '@/views/HelloKitty/KTBodyTwo.vue'
 
 const coverImg = computed(() => CurrentMusic.value.img || '/src/assets/BodyNoe/leftssmall.png')
 const leftBig = ref(null)
@@ -109,15 +110,15 @@ onBeforeMount(()=>{})*/
 
 
 const MusicArr=[
-  {id:0,name:"Music",singer:"singer",Album:"Album",},
-  {id:1,name:"Happy birthday",singer:"Huey",Album:"Huey"},
-  {id:2,name:"小镇爱",singer:"asen/付思遥",Album:"Thug Love",
-    url:"http://music.163.com/song/media/outer/url?id=2075583674.mp3",
-    img:"src/assets/BodyNoe/R-C.jpg"},
-  {id:3,name:"唯唯",singer:"asen-艾志恒",Album:"Life After Small Town",
-  url:"http://music.163.com/song/media/outer/url?id=2163619024.mp3",
-    img:"https://p1.music.126.net/VmFpmDv5TJwfKeKgHBdiZA==/109951169700047695.jpg"},
-  {id:4,name:"Baby Don't Cry",singer:"EXO",Album:"XOXO"},
+  {id:0,name:'Music',singer:'singer',Album:'Album'},
+  {id:1,name:'Happy birthday',singer:'Huey',Album:'Huey'},
+  {id:2,name:'小镇爱',singer:'asen/付思遥',Album:'Thug Love',
+    url:'http://music.163.com/song/media/outer/url?id=2075583674.mp3',
+    img:'src/assets/BodyNoe/R-C.jpg'},
+  {id:3,name:'唯唯',singer:'asen-艾志恒',Album:'Life After Small Town',
+  url:'http://music.163.com/song/media/outer/url?id=2163619024.mp3',
+    img:'https://p1.music.126.net/VmFpmDv5TJwfKeKgHBdiZA==/109951169700047695.jpg'},
+  {id:4,name:'Baby Don\'t Cry',singer:'EXO',Album:'XOXO'}
 
 ]
 const CurrentMusic=ref(MusicArr[0])
@@ -238,6 +239,7 @@ const SelectMusic =(music)=>{
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -250,7 +252,8 @@ const SelectMusic =(music)=>{
   align-items: center;
   width: 100%;
   background: #f9d2d2;
-  height: 900px;
+  height: 885px;
+  z-index: 100;
 }
 
 .centerContainer {
@@ -275,6 +278,7 @@ const SelectMusic =(music)=>{
   justify-content: center;
   height: 500px;
   position: relative;
+
 
   img {
     width: 500px;
@@ -391,28 +395,36 @@ const SelectMusic =(music)=>{
   flex-direction: column;
   position: relative;
   .musicDescribe {
+    background-image: url("src/assets/BodyNoe/EB7E1141EFA02FD565A22E071DD64CB1_副本.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     position: relative;
     left: 200px;
+  width: 80%;
     .Popular {
       font-size: 44px;
       font-weight: bold;
       color: #7559a4;
       font-family: Bodytitle;
+      width: 400px;
     }
     .Famous {
       font-size: 65px;
       color: #f2a5d4;
       font-family: FontLovely_2;
+      width: 1000px;
     }
     .Listen {
       color: #9fb5dc;
       font-family: FontLovely_1;
+      width: 400px;
     }
     .number {
       color: hotpink;
       font-family: FontLovely_2;
+      width: 400px;
     }
   }
   .musicRadio {
@@ -420,7 +432,7 @@ const SelectMusic =(music)=>{
     flex-wrap: wrap;
     width: 850px;
     height: 500px;
-
+z-index: 99;
     position: absolute;
     left: 600px;
     top: 200px;
@@ -433,7 +445,7 @@ const SelectMusic =(music)=>{
       display: flex;
       flex-direction: column;
       gap: 20px;
-      opacity: 0.7;
+      opacity: 0.8;
       align-items: center;
       position: relative;
       .RadioTitle {
@@ -502,7 +514,7 @@ const SelectMusic =(music)=>{
       transform: scaleX(1);
     }
     .RadioRightOpacity{
-      opacity: 0.7;
+      opacity: 0.8;
     }
    .RadioRightOpacityTwo{
       opacity: 1;
@@ -593,4 +605,5 @@ const SelectMusic =(music)=>{
     }
   }
 }
+
 </style>
