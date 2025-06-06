@@ -49,7 +49,7 @@ const MusicArr = [
     name: "Baby Don't Cry",
     singer: 'EXO',
     Album: 'XOXO',
-    url: "http://ws.stream.qqmusic.qq.com/C400003zPtkE2Jl4Xw.m4a?guid=968287063&vkey=FB8855F82A65DC1CE7EF3A8673AEDA952F8FFA29784DB650A14599D9273AE528C27BA4C38282920923268C6B3B129BE950A973DC4BAC4148__v2b9ab89a&uin=&fromtag=120032&src=C400000K8lcU352dmH.m4a",
+    url: "http://ws.stream.qqmusic.qq.com/C400003zPtkE2Jl4Xw.m4a?guid=968287063&vkey=FB8855F82A65DC1CE7EF3AEDA952F8FFA29784DB650A14599D9273AE528C27BA4C38282920923268C6B3B129BE950A973DC4BAC4148__v2b9ab89a&uin=&fromtag=120032&src=C400000K8lcU352dmH.m4a",
     img: "https://y.gtimg.cn/music/photo_new/T002R300x300M000000g5cRu1VNAt6.jpg"
   },
 ]
@@ -89,7 +89,7 @@ const switchIcon = () => {
     isPlaying.value ? audio.value.pause() : audio.value.play()
     setTimeout(() => {
       isOpacity.value = !isOpacity.value
-    }, 500)
+    }, 250)
     console.log('isPlaying:', isPlaying.value)
   }
   // ❗️注意：此处重复的播放逻辑可能导致状态混乱
@@ -97,7 +97,7 @@ const switchIcon = () => {
     isPlaying.value ? audio.value.pause() : audio.value.play()
     setTimeout(() => {
       isOpacity.value = !isOpacity.value
-    }, 250)
+    }, 500)
     console.log('isPlaying:', isPlaying.value)
   }
 }
@@ -129,10 +129,7 @@ const onSeekChange = () => {
 const SelectMusic = (music) => {
   isSelectEvent.value = true // 标记音乐选择事件
   switchIcon() // 切换播放状态（可能触发播放）
-  setTimeout(()=>{
-    CurrentMusic.value = music // 更新当前音乐
-  },350)
-
+  CurrentMusic.value = music // 更新当前音乐
   audio.value.src = music.url // 加载新音乐地址
   audio.value.play() // 播放新音乐
 }
@@ -256,7 +253,7 @@ const SelectMusic = (music) => {
                   step="0.1"
                   class="progress"
                   @input="onSeekInput"
-                @change="onSeekChange"
+                  @change="onSeekChange"
                 />
               </div>
 
@@ -301,15 +298,15 @@ const SelectMusic = (music) => {
                 @click="SelectMusic(music)"
                 :class="['MusicArr', { 'no-hover': music.id === 0 }]"
               >
-              <span>{{ music.name }}</span> <!-- 音乐名 -->
-              <span> {{ music.singer }} </span> <!-- 歌手 -->
-              <span> {{ music.Album }} </span> <!-- 专辑 -->
+                <span>{{ music.name }}</span> <!-- 音乐名 -->
+                <span> {{ music.singer }} </span> <!-- 歌手 -->
+                <span> {{ music.Album }} </span> <!-- 专辑 -->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -552,7 +549,7 @@ const SelectMusic = (music) => {
       transform-origin: left;
       transition:
         opacity 0.5s cubic-bezier(0.68, 1, 0.27, 1),
-        /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, 1, 0.27, 1); /* 平滑过渡 */
+          /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, 1, 0.27, 1); /* 平滑过渡 */
     }
     .MusicArr {
       margin-top: 20px;
@@ -595,7 +592,7 @@ const SelectMusic = (music) => {
 
       transition:
         opacity 0.5s cubic-bezier(0.68, 1, 0.27, 1),
-        /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, 1, 0.27, 1); /* 平滑过渡 */
+          /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, 1, 0.27, 1); /* 平滑过渡 */
     }
 
     .RadioAnimationStatic {
@@ -622,7 +619,7 @@ const SelectMusic = (music) => {
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 添加阴影，增加立体感 */
       transition:
         opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-        /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* 平滑过渡 */
+          /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* 平滑过渡 */
 
       .progress {
         accent-color: #f2a5d4;
@@ -673,13 +670,13 @@ const SelectMusic = (music) => {
 
       transition:
         opacity 1s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-        /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+          /* 使用自定义缓动函数 */ transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       transform-origin: bottom;
     }
 
     .RadioBottom {
       filter: contrast(
-        1.5
+          1.5
       ); // 对比度增强为 1.5 倍，可根据需要调整（会导致容器边距移动，无法正常对齐
       width: 100%;
       background-color: rgba(242, 165, 212, 0.78);

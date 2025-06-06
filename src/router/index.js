@@ -3,6 +3,7 @@ import KTNavigation from '@/views/HelloKitty/KTNavigation.vue'
 import KTHeader from '@/views/HelloKitty/KTHeader.vue'
 import KTBodyOne from '@/views/HelloKitty/KTBodyOne.vue'
 import KTBodyTwo from '@/views/HelloKitty/KTBodyTwo.vue'
+import Music from '@/views/HelloKitty/Music.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -25,6 +26,11 @@ const router = createRouter({
       path: '/KTBodyTwo',
       name: 'KTBodyTwo ',
       component: KTBodyTwo,
+    },
+    {
+      path: '/Music',
+      name: 'Music',
+      component: Music,
     },
   ],
 })
