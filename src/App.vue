@@ -9,6 +9,8 @@ import { RouterView } from 'vue-router'
 <template>
 <KTNavigation></KTNavigation>
 
+  <Music></Music>
+
 
   <router-view />
 

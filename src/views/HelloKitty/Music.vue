@@ -15,7 +15,7 @@ const isRightOpen = ref(false)      // 右侧音乐列表展开状态
 const isRightOpcity = ref(false)    // 右侧列表展开时的透明度动画
 const isRightOpcityTwo = ref(false) // 备用透明度控制（可能未使用）
 const isSelectEvent = ref(false)    // 音乐选择事件标记（防止重复触发）
-
+const isRadioLeftHide =ref(false)
 // 音频实例 & 进度相关
 const audio = ref(new Audio()) // 创建音频实例
 const currentTime = ref(0)      // 当前播放时间（秒）
@@ -46,7 +46,7 @@ const MusicArr = [
     name: "Baby Don't Cry",
     singer: 'EXO',
     Album: 'XOXO',
-    url: "http://ws.stream.qqmusic.qq.com/C400003zPtkE2Jl4Xw.m4a?guid=968287063&vkey=FB8855F82A65DC1CE7EF3AEDA952F8FFA29784DB650A14599D9273AE528C27BA4C38282920923268C6B3B129BE950A973DC4BAC4148__v2b9ab89a&uin=&fromtag=120032&src=C400000K8lcU352dmH.m4a",
+    url: "http://ws.stream.qqmusic.qq.com/C400003zPtkE2Jl4Xw.m4a?guid=968287063&vkey=FB8855F82A65DC1CE7EF3A8673AEDA952F8FFA29784DB650A14599D9273AE528C27BA4C38282920923268C6B3B129BE950A973DC4BAC4148__v2b9ab89a&uin=&fromtag=120032&src=C400000K8lcU352dmH.m4a",
     img: "https://y.gtimg.cn/music/photo_new/T002R300x300M000000g5cRu1VNAt6.jpg"
   },
 ]
@@ -65,33 +65,53 @@ const RightOpen = () => {
   console.log('isRightOpen:', isRightOpen.value)
 }
 
-// 播放/暂停切换 & 图标动画
+// 播放/暂停切换 & 图标动画& 播报内容
 const switchIcon = () => {
-  if (isSelectEvent.value === true) { // 音乐选择时的特殊逻辑
+  if (isSelectEvent.value === true) {
     isPlaying.value = !isPlaying.value
-    isSelectEvent.value = false // 重置事件标记
-    // 播放/暂停控制
-    isPlaying.value ? audio.value.pause() : audio.value.play()
-    // 延迟切换透明度动画（配合CSS过渡）
+    isSelectEvent.value = false
+    if (!isPlaying.value) {
+      audio.value.play() // 播放
+    } else {
+      audio.value.pause() // 暂停
+    } // 播放音乐
     setTimeout(() => {
       isOpacity.value = !isOpacity.value
     }, 250)
     console.log('isPlaying:', isPlaying.value)
-    // ❗️注意：这里重复设置isPlaying为false可能存在逻辑问题
     setTimeout(() => {
       isPlaying.value = false
     }, 700)
-  } else { // 常规播放状态切换
+    if (isPlaying.value === false) {
+      if (!isPlaying.value) {
+        audio.value.play() // 播放
+      } else {
+        audio.value.pause() // 暂停
+      } // 播放音乐
+      setTimeout(() => {
+        isOpacity.value = !isOpacity.value
+      }, 500)
+      console.log('isPlaying:', isPlaying.value)
+    }
+  } else {
     isPlaying.value = !isPlaying.value
-    isPlaying.value ? audio.value.pause() : audio.value.play()
+
+    if (!isPlaying.value) {
+      audio.value.play() // 播放
+    } else {
+      audio.value.pause() // 暂停
+    } // 播放音乐
     setTimeout(() => {
       isOpacity.value = !isOpacity.value
-    }, 250)
+    }, 500)
     console.log('isPlaying:', isPlaying.value)
   }
-  // ❗️注意：此处重复的播放逻辑可能导致状态混乱
   if (isPlaying.value === false) {
-    isPlaying.value ? audio.value.pause() : audio.value.play()
+    if (!isPlaying.value) {
+      audio.value.play() // 播放
+    } else {
+      audio.value.pause() // 暂停
+    } // 播放音乐
     setTimeout(() => {
       isOpacity.value = !isOpacity.value
     }, 500)
@@ -109,6 +129,7 @@ onMounted(() => {
   audio.value.addEventListener('loadedmetadata', () => {
     duration.value = audio.value.duration
   })
+    audio.value.addEventListener('ended', nextMusic)
 })
 
 // 进度条拖动时暂停并跳转
@@ -120,6 +141,36 @@ const onSeekInput = (e) => {
 // 进度条释放时恢复播放
 const onSeekChange = () => {
   audio.value.play() // 恢复播放
+}
+//下一首音乐
+const nextMusic = () => {
+  isSelectEvent.value = true // 标记音乐选择事件
+  switchIcon ()
+  const currentIndex = MusicArr.findIndex(m => m.id === CurrentMusic.value.id)
+  let nextIndex = currentIndex + 1
+  if (nextIndex >= MusicArr.length) nextIndex = 1 // 跳过占位数据
+  setTimeout(()=>{
+    CurrentMusic.value = MusicArr[nextIndex]
+    audio.value.src = CurrentMusic.value.url
+    audio.value.play()
+  },350)
+
+}
+//上一首音乐
+const backMusic = () => {
+  isSelectEvent.value = true // 标记音乐选择事件
+  switchIcon ()
+  const currentIndex = MusicArr.findIndex(m => m.id === CurrentMusic.value.id)
+  let backIndex = currentIndex -1
+  if (backIndex ===0 ) backIndex = MusicArr.length // 跳过占位数据
+
+  setTimeout(()=>{
+    CurrentMusic.value = MusicArr[backIndex]
+    audio.value.src = CurrentMusic.value.url
+    audio.value.play()
+  },350)
+
+
 }
 
 // 选择具体音乐
@@ -133,6 +184,32 @@ const SelectMusic = (music) => {
   audio.value.src = music.url // 加载新音乐地址
   audio.value.play() // 播放新音乐
 }
+
+
+const containerRef = ref(null)
+let offsetX = 0
+let offsetY = 0
+let isDragging = false
+
+onMounted(() => {
+  const el = containerRef.value
+  el.addEventListener('mousedown', (e) => {
+    isDragging = true
+    offsetX = e.clientX - el.offsetLeft
+    offsetY = e.clientY - el.offsetTop
+    document.body.style.userSelect = 'none'
+  })
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      el.style.left = e.clientX - offsetX + 'px'
+      el.style.top = e.clientY - offsetY + 'px'
+    }
+  })
+  document.addEventListener('mouseup', () => {
+    isDragging = false
+    document.body.style.userSelect = ''
+  })
+})
 </script>
 
 <template>
@@ -140,7 +217,7 @@ const SelectMusic = (music) => {
 
 
   <!-- 主体内容容器 -->
-  <div class="BodyOne_mainContainer">
+  <div class="BodyOneMusic_mainContainer" ref="containerRef">
     <div class="centerContainer">
       <div class="body">
         <!-- 主题展示模块 -->
@@ -149,10 +226,13 @@ const SelectMusic = (music) => {
 
           <div class="musicRadio">
             <!-- 左侧音乐控制区域 -->
-            <div class="RadioLeft">
+
+            <div class="RadioLeft" :class="{ RadioLeftHide: isRadioLeftHide }">
               <!-- 收音机标题（带图标） -->
               <div class="RadioTitle">
+                <div class="imgHide" style="display: flex;align-items: center;   transition: opacity 0.8s ease-out;">
                 <img src="../../assets/BodyNoe/Music.png" height="50" width="60" /> Music
+                </div>
               </div>
               <!-- 收藏状态文本 -->
               <div class="RadioLike">I like the most</div>
@@ -198,7 +278,7 @@ const SelectMusic = (music) => {
                 </div>
                 <div class="control">
                   <!-- 上一首按钮（未实现具体逻辑） -->
-                  <i :class="['fa fa-step-backward', 'iconStyle']"></i>
+                  <i :class="['fa fa-step-backward', 'iconStyle']" @click="backMusic"></i>
                   <!-- 播放/暂停按钮（根据播放状态切换图标） -->
                   <i
                     :class="isPlaying ? 'fa fa-play' : 'fa fa-pause'"
@@ -206,10 +286,13 @@ const SelectMusic = (music) => {
                     @click="switchIcon"
                   ></i>
                   <!-- 下一首按钮（未实现具体逻辑） -->
-                  <i :class="['fa fa-step-forward', 'iconStyle']"></i>
+                  <i :class="['fa fa-step-forward', 'iconStyle']" @click="nextMusic"></i>
                   <!-- 右侧列表展开按钮（使用Element Plus图标，控制列表显隐） -->
                   <el-icon class="iconStyle" @click="RightOpen">
                     <component :is="isRightOpen ? 'Expand' : 'Fold'" />
+                  </el-icon>
+                  <el-icon class="iconStyle sunny" @click="isRadioLeftHide=!isRadioLeftHide">
+                    <Sunny />
                   </el-icon>
                 </div>
               </div>
@@ -244,7 +327,7 @@ const SelectMusic = (music) => {
 </template>
 
 <style scoped lang="scss">
-.BodyOne_mainContainer {
+.BodyOneMusic_mainContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -252,6 +335,10 @@ const SelectMusic = (music) => {
   background: #f9d2d2;
   height: auto;
   z-index: 100;
+  position: fixed;
+  top: 10%;
+
+
 }
 
 .centerContainer {
@@ -276,57 +363,25 @@ const SelectMusic = (music) => {
   flex-direction: column;
   position: relative;
 
-  .musicDescribe {
-    background-image: url('src/assets/BodyNoe/EB7E1141EFA02FD565A22E071DD64CB1_副本.jpg');
-    background-size: 100%;
-    background-attachment: fixed;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    span {
-      position: relative;
-      left: 200px;
-    }
-    width: 100%;
-    .Popular {
-      font-size: 44px;
-      font-weight: bold;
-      color: #7559a4;
-      font-family: Bodytitle;
-      width: 400px;
-    }
-    .Famous {
-      font-size: 65px;
-      color: #f2a5d4;
-      font-family: FontLovely_2;
-      width: 1000px;
-    }
-    .Listen {
-      color: #9fb5dc;
-      font-family: FontLovely_1;
-      width: 400px;
-    }
-    .number {
-      color: hotpink;
-      font-family: FontLovely_2;
-      width: 400px;
-    }
-  }
+
   .musicRadio {
     display: flex;
     flex-wrap: wrap;
     width: 850px;
-    height: 500px;
+    height: 499px;
     z-index: 99;
     position: absolute;
-    left: 600px;
-    top: 200px;
+  top: 0;
+    left: 0;
 
     .RadioLeft {
-      border-radius: 50px;
+      animation: Music 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) ;
+
+      transition: background-color 0.8s ease-out;
+      border-radius: 48px;
       width: 25%;
-      height: 85%;
-      background-color: #f6f7f8;
+      height: 84.60%;
+      background-color: #7559a4;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -339,19 +394,79 @@ const SelectMusic = (music) => {
         font-family: FontLovely_2;
         color: #fd8caf;
         margin-right: 50px;
+
+        transition: opacity 0.8s ease-out;
       }
       .RadioLike {
         width: 100%;
         font-family: FontLovely_2;
         color: #7559a4;
         background-color: #fd8caf;
+
+        transition: opacity 0.8s ease-out;
       }
       .RadioRecommen {
         font-family: FontLovely_2;
-        color: #7559a4;
+        color: #fd8caf;
+
+        transition: opacity 0.8s ease-out;
+      }
+      .RadioBottom {
+        filter: contrast(
+            1.6
+        ); // 对比度增强为 1.5 倍，可根据需要调整（会导致容器边距移动，无法正常对齐
+        width: 212.5px;
+        background-color: rgba(242, 165, 212,1);
+        height: 63.31px;
+        display: flex;
+        position: absolute;
+        top: 360px;
+        border-radius: 50px;
+        .img {
+
+
+          overflow: hidden;
+          position: absolute;
+          height: 60px;
+          width: 60px;
+          left: 20px;
+          border-radius: 50%;
+          bottom: 30px;
+          border: #fd8caf solid 4px;
+          animation: rotate 5s linear infinite;
+        }
+        .control {
+          display: flex;
+          position: relative;
+          left: 95px;
+          font-size: 20px;
+          top: 27px;
+          gap: 15px;
+          .iconStyle {
+            color: #7559a4;
+            cursor: pointer;
+            height: 20px;
+            width: 15.72px;
+          }
+          .sunny{
+            position: absolute;
+            bottom: 65px;
+            left: 80px;
+
+          }
+          .iconStyle:hover {
+            color: hotpink;
+          }
+        }
       }
     }
+    .RadioLeftHide{
+      background-color: rgba(246, 247, 248, 0);
 
+      .RadioLike{opacity: 0}
+      .RadioRecommen{opacity: 0}
+      .imgHide{opacity: 0}
+    }
     .RadioRight {
       display: flex;
       flex-direction: column;
@@ -419,15 +534,15 @@ const SelectMusic = (music) => {
         left: 60px;
         font-size: 12px;
       }
-      width: 80%;
+      width: 170px;
       background-color: rgba(242, 165, 212, 0.8); /* 调整透明度，增加层次感 */
-      height: 15%;
+      height: 63.31px;
       display: flex;
       position: absolute;
       top: 298px;
       display: flex;
       flex-direction: column;
-      opacity: 0.7; /* 默认透明度 */
+      opacity: 0.8; /* 默认透明度 */
       transform: scaleY(1); /* 默认缩放比例 */
       transform-origin: bottom; /* 缩放的起点设置为底部 */
       border-top-right-radius: 16px;
@@ -481,8 +596,8 @@ const SelectMusic = (music) => {
       box-shadow: none; /* 隐藏时移除阴影 */
     }
     .RadioAnimationActionTwo {
-      opacity: 0.7 !important;
-      background-color: #9fb5dc;
+      opacity: 0.8!important;
+      background-color: #fafafa;
 
       transition:
         opacity 1s cubic-bezier(0.68, -0.55, 0.27, 1.55),
@@ -490,46 +605,7 @@ const SelectMusic = (music) => {
       transform-origin: bottom;
     }
 
-    .RadioBottom {
-      filter: contrast(
-          1.5
-      ); // 对比度增强为 1.5 倍，可根据需要调整（会导致容器边距移动，无法正常对齐
-      width: 100%;
-      background-color: rgba(242, 165, 212, 0.78);
-      height: 15%;
-      display: flex;
-      position: absolute;
-      top: 360px;
-      border-radius: 50px;
-      .img {
-        overflow: hidden;
-        position: absolute;
-        height: 60px;
-        width: 60px;
-        left: 20px;
-        border-radius: 50%;
-        bottom: 30px;
-        border: #fd8caf solid 4px;
-        animation: rotate 5s linear infinite;
-      }
-      .control {
-        display: flex;
-        position: relative;
-        left: 95px;
-        font-size: 20px;
-        top: 27px;
-        gap: 15px;
-        .iconStyle {
-          color: #7559a4;
-          cursor: pointer;
-          height: 20px;
-          width: 15.72px;
-        }
-        .iconStyle:hover {
-          color: hotpink;
-        }
-      }
-    }
+
   }
 }
 </style>

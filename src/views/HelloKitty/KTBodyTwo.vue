@@ -7,8 +7,6 @@
     <div class="centerContainer">
   <div class="windowBackground">
     <div class="window">
-
-
     </div>
   </div>
     </div>

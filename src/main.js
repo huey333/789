@@ -12,11 +12,12 @@ import "./CSS/LoginView/TakeWord.css"
 import "./views/HelloKitty/KTNavigation.vue"
 import KTNavigation from '@/views/HelloKitty/KTNavigation.vue'
 import 'font-awesome/css/font-awesome.min.css';
-
+import Music from '@/views/HelloKitty/Music.vue'
 const app = createApp(App)
 app.use(ElementPlus);
 // 全局注册所有图标组件
 app.component("KTNavigation",KTNavigation)
+app.component("Music",Music)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
